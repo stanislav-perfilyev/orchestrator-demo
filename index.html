@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Оркестратор задач</title>
+  <meta name="description" content="Демо-макет системы, которая сама распределяет задачи между исполнителями по навыку, сложности и загрузке.">
+  <meta property="og:title" content="Оркестратор задач">
+  <meta property="og:description" content="Демо-макет: общий пул задач, автораспределение по исполнителям, экраны менеджера, исполнителя и заказчика.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28' fill='%232446C8'%3E%3Ccircle cx='6' cy='14' r='3.4'/%3E%3Ccircle cx='22.5' cy='6' r='2.5'/%3E%3Ccircle cx='22.5' cy='14' r='2.5'/%3E%3Ccircle cx='22.5' cy='22' r='2.5'/%3E%3Cpath d='M9.4 14C15 14 15 6 20 6M9.4 14H20M9.4 14C15 14 15 22 20 22' fill='none' stroke='%232446C8' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Unbounded:wght@500;600&amp;display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script src="logic.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand">
+        <svg viewBox="0 0 28 28" aria-hidden="true">
+          <circle cx="6" cy="14" r="3.4" fill="currentColor" />
+          <path d="M9.4 14C15 14 15 6 20 6M9.4 14H20M9.4 14C15 14 15 22 20 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <circle cx="22.5" cy="6" r="2.5" fill="currentColor" />
+          <circle cx="22.5" cy="14" r="2.5" fill="currentColor" />
+          <circle cx="22.5" cy="22" r="2.5" fill="currentColor" />
+        </svg>
+        <span class="name">Оркестратор</span>
+        <span class="badge">демо</span>
+      </div>
+      <nav class="seg" aria-label="Чьими глазами смотреть">
+        <button type="button" data-act="view" data-v="manager" aria-pressed="true">Менеджер</button>
+        <button type="button" data-act="view" data-v="exec" aria-pressed="false">Исполнитель</button>
+        <button type="button" data-act="view" data-v="client" aria-pressed="false">Заказчик</button>
+      </nav>
+      <div class="top-act">
+        <button type="button" class="switch" id="live" data-act="live" role="switch" aria-checked="false" title="Исполнители сами двигают задачи, заказчики присылают новые">
+          <span class="knob"></span>Живой режим<span class="pulse" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn ghost" data-act="reset">Сбросить</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="v-manager" class="view">
+      <p class="lead">Так систему видит менеджер: общий пул задач, загрузка каждого исполнителя и всё, что ждёт проверки перед отправкой заказчику.</p>
+      <details class="how" open>
+        <summary>Как работает оркестратор</summary>
+        <ol>
+          <li><b>Менеджер кладёт задачу в общий пул</b><span>Название, ТЗ с ремарками, сложность от 1 до 5 и срок.</span></li>
+          <li><b>Оркестратор подбирает исполнителя</b><span>Нужный навык, уровень под сложность, самая низкая загрузка. Причина выбора видна в ленте.</span></li>
+          <li><b>Исполнитель сдаёт работу</b><span>Задача уходит на проверку, а он сразу встаёт в очередь за следующей.</span></li>
+          <li><b>Менеджер проверяет и отправляет</b><span>Приходит уведомление, менеджер добавляет свои ремарки и отдаёт результат заказчику.</span></li>
+        </ol>
+      </details>
+      <div id="m-dyn" class="view"></div>
+    </section>
+    <section id="v-exec" class="view" hidden></section>
+    <section id="v-client" class="view" hidden></section>
+    <p class="foot">Демо-макет. Все люди, компании и задачи выдуманы. Данные живут только в этой вкладке, кнопка «Сбросить» возвращает исходное состояние.</p>
+  </main>
+
+  <div class="scrim" id="modal" hidden>
+    <div class="dlg" id="dlg" role="dialog" aria-modal="true" aria-labelledby="dlg-title"></div>
+  </div>
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+</body>
+</html>

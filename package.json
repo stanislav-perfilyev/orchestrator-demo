@@ -1,0 +1,17 @@
+{
+  "name": "orchestrator-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Кликабельный демо-макет оркестратора задач",
+  "scripts": {
+    "test": "node --test tests/logic.test.js",
+    "lint:html": "html-validate index.html",
+    "check": "npm test && npm run lint:html"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "html-validate": "11.16.1"
+  }
+}
